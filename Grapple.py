@@ -19,6 +19,7 @@ def main():
     parser.add_option('-r', dest='receiveclient', type='string', help='specify receive client MAC address as XX:XX:XX:XX:XX:XX')
     parser.add_option('-i', dest='interface', type='string', help='specify interface to send flood')
     (options, args) = parser.parse_args()
+    
     targetclient = options.targetclient
     receiveclient = options.receiveclient
     interface = options.interface

@@ -52,7 +52,7 @@ RSSI of 4C:FC:AA:00:00:01 = -28 ::xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 `sudo python3 Grapple.py -t 4C:FC:AA:00:00:01 -r 00:00:00:00:00:00 -i wlan0mon`
 
-6. Move around and attempt to locate the device
+6. Move around and attempt to locate the device.
 
 # TODO:
 

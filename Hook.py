@@ -1,20 +1,29 @@
 ### GRAPPLING HOOK - HOOK MODULE
 ### HOOK parses the signal strength from target clients CTS packets
 ### Displays as received signal strength indicated (RSSI) in dB
-
+### python3
 
 from scapy.all import *
-import pcap
 import optparse
 from time import sleep
 import sys
 
+#takes the RSSI value and creates a bar for display
+#the stronger the signal, the longer the bar
+#TODO: error handling
+def barlength(rssi):
+    len = 100 + int(rssi)
+    bar = ""
+    x=0
+    while x<len:
+      bar = bar + "x"
+      x=x+1
+    return bar
+
 def ctscap(p):
     if p.haslayer(Dot11):
-        if p.type == 1 and p.subtype == 12 and p.addr1 == receiveclient: #Its a CTS frame headed to your capture tool
-            rssi = -(256-ord(p.notdecoded[-4:-3])) #Strips signal strength from RADIOTAP Hex Header
-            sys.stdout.write('\r')
-            sys.stdout.write("RSSI of Target= "+str(rssi))
+        if p.type == 1 and p.subtype == 12 and str(p.addr1).upper() == str(receiveclient).upper(): #Its a CTS frame headed to your capture tool
+            sys.stdout.write("RSSI of "+str(receiveclient).upper()+" = "+str(p.dBm_AntSignal)+" ::"+str(barlength(p.dBm_AntSignal)+"\n"))
             sys.stdout.flush()
 def main():
     parser = optparse.OptionParser('usage%prog '+'-r <receiveclient> -i <interface>')
